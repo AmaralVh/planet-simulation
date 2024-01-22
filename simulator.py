@@ -16,6 +16,7 @@ BLUE = [100, 149, 237]
 RED = [188, 39, 50]
 DARK_GREY = [80, 78, 81]
 DARK_BLUE = [0, 0, 255]
+GREEN = [0, 255, 0]
 
 FONT = pygame.font.SysFont("comicsans", 16)
 
@@ -29,8 +30,8 @@ class Planet:
     TIMESTEP = 3600 * 24 # 1 day in the simulation
     
     def __init__(self, x, y, radius, color, mass):
-        self.x = x
-        self.y = y
+        self.x = x * self.AU
+        self.y = y * self.AU
         self.radius = radius
         self.color = color
         self.mass = mass
@@ -163,35 +164,71 @@ def main():
     # Set a clock to the frame change (fixes a velocity to it):
     clock = pygame.time.Clock()
     
-    sun1 = Planet(-1.5 * Planet.AU, 0 * Planet.AU, 15, YELLOW, 1.98892 * 10**30)
+    blackHole = Planet(0, 0, 4, [255, 255, 255], 1.98892 * 10**32)
+    blackHole.star = True
+    
+    star1 = Planet(-1.5, 0, 2, [255, 255, 255], 1.98892 * 10**30)
+    star1.star = True
+    star1.x_vel = 16 * 1000
+    
+    star2 = Planet(-1.5, 0.2, 2, [255, 255, 255], 1.98892 * 10**30)
+    star2.star = True
+    star2.x_vel = 16 * 1000
+    
+    star3 = Planet(-1.5 , 0.4, 2, [255, 255, 255], 1.98892 * 10**30)
+    star3.star = True
+    star3.x_vel = 16 * 1000
+    
+    star4 = Planet(-1.5, 0.5, 2, [255, 255, 255], 1.98892 * 10**30)
+    star4.star = True
+    star4.x_vel = 16 * 1000
+    
+    star5 = Planet(-1.5, 0.6, 2, [255, 255, 255], 1.98892 * 10**30)
+    star5.star = True
+    star5.x_vel = 16 * 1000
+    
+    sun1 = Planet(-1.5, 0, 15, [255, 255, 0], 1.98892 * 10**30)
     sun1.star = True
     # sun1.x_vel = 70 * 1000
     # sun1.y_vel = 30 * 1000
     
-    sun2 = Planet(0 * Planet.AU, 0 * Planet.AU, 15, RED, 1.98892 * 10**30)
+    sun2 = Planet(0, 0, 15, [255, 100, 0], 1.98892 * 10**30)
     sun2.star = True
     # sun2.x_vel = 20 * 1000
-    # sun2.y_vel = 10 * 1000
+    # sun2.y_vel = 20 * 1000
     
-    earth = Planet(-1.7 * Planet.AU, 0 * Planet.AU, 8, BLUE, 5.9742 * 10**23)
-    earth.y_vel = -16 * 1000
+    sun3 = Planet(1, 0, 15, [255, 100, 0], 1.98892 * 10**30)
+    sun3.y_vel = -20 * 1000
+    sun3.star = True
     
-    mars1 = Planet(0.5 * Planet.AU, 0, 6, RED, 5.39 * 10**23)
+    earth1 = Planet(1.7, 0, 8, [0, 0, 255], 5.9742 * 10**23)
+    earth1.y_vel = -16 * 1000
+    
+    earth2 = Planet(1.5, 0, 8, [0, 255, 0], 5.9742 * 10**23)
+    earth2.y_vel = -16 * 1000
+    
+    moon = Planet(1.4, -0.2, 5, [255, 255, 255], 5.9742 * 2**10)
+    moon.y_vel = -16 * 1000
+    
+    mars1 = Planet(0.5, 0, 6, [255, 0, 0], 5.39 * 10**23)
     mars1.y_vel = -50.077 * 1000
     
-    mercury1 = Planet(0.387 * Planet.AU, 0, 4, DARK_GREY, 3.30 * 10**23)
+    mercury1 = Planet(0.387, 0, 4, [80, 78, 81], 3.30 * 10**23)
     mercury1.y_vel = -60 * 1000
     
-    mercury2 = Planet(-0.2 * Planet.AU, 0, 4, DARK_GREY, 3.30 * 10**23)
+    mercury2 = Planet(-1.2, 0, 4, WHITE, 3.30 * 10**23)
     mercury2.y_vel = 40 * 1000
     
-    mercury3 = Planet(0.5 * Planet.AU, 2 * Planet.AU, 4, DARK_GREY, 3.30 * 10**23)
-    mercury3.y_vel = -30 * 1000
+    mercury3 = Planet(1, 1, 4, DARK_BLUE, 3.30 * 10**23)
+    mercury3.y_vel = -10 * 1000
     
-    venus = Planet(0.4 * Planet.AU, 0 * Planet.AU, 7, WHITE, 4.8685 * 10**28)
+    mercury4 = Planet(0, 1.5, 4, [0, 255, 0], 3.30 * 10**23)
+    mercury4.x_vel = 30 * 1000
+    
+    venus = Planet(0.4, 0, 7, WHITE, 4.8685 * 10**28)
     venus.y_vel = 18.9 * 1000
         
-    planets = [sun1, sun2, mercury1]
+    planets = [sun1, sun2, mercury1, mercury2, mercury3, mercury4, earth1, earth2]
     
     # Loop of open window:
     while run:
